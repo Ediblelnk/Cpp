@@ -7,7 +7,7 @@ using namespace std;
 //prints out an array with len elements
 void print_array(int arr[], int len) {
     for (int j = 0; j < len; j++) {
-        cout << setw(2) << arr[j] << ", ";
+        cout << setw(3) << arr[j] << ", ";
     }
     cout << endl;
 }
@@ -19,9 +19,9 @@ int main() {
     int rand();
 
     // vars
-    int length = 10;
+    int length = 1000;
     int arr[length];
-    const int MAX = 30;
+    const int MAX = 1000;
     const int OFFSET = 0;
 
     // assigns random values to each element of array
