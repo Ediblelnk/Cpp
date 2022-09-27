@@ -6,7 +6,7 @@ int main() {
   int* p = new int;
   int& r = x;
 
-  *p = x;
+  *p = 77;
 
   cout << "x:  " << x << endl
        << "*p: " << *p << endl
