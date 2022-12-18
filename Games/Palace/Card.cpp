@@ -7,7 +7,7 @@ using namespace std;
 //DECLARE
 class Card {
   public:
-    Card(string suit, int rank);
+    Card(string suit = "", int rank = 0);
     Card(const Card &C);
 
     //special operators
