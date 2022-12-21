@@ -14,7 +14,9 @@ class Deck {
 
     //operators
     const Deck operator=(const Deck &D);
-    Card operator[](int i) const;
+    const Card &operator[](int i) const;
+    Card &operator[](int i);
+    Deck &operator+=(Card C);
 
     //vars
     Card *ptr;
@@ -39,8 +41,12 @@ Deck::Deck(const Deck &D) {
 }
 
 const Deck Deck::operator=(const Deck &D) {
+  if(this == &D) return *this;
+
   this->max = D.max;
   this->current = D.current;
+
+  delete this->ptr;
   this->ptr = new Card[D.max];
 
   for(int i = 0; i < D.current; i++) {(*this)[i] = D[i];}
@@ -48,15 +54,46 @@ const Deck Deck::operator=(const Deck &D) {
   return *this;
 }
 
-Card Deck::operator[](int i) const {
-  assert(0 < i && i < this->current);
+const Card &Deck::operator[](int i) const {
+  assert(-1 < i && i < this->current);
   return this->ptr[i];
 }
 
+Card &Deck::operator[](int i) {
+  assert(-1 < i && i < this->current);
+  return this->ptr[i];
+}
+
+Deck &Deck::operator+=(Card C) {
+  assert(this->current < this->max);
+  (*this)[this->current++] = C;
+
+  return *this;
+}
+
 ostream &operator<<(ostream &output, const Deck &D) {
-  output << "<";
-  for(int i = 0; i < D.current; i++) {output << D[i];}
-  output << ">";
+  for(int i = 0; i < D.current; i++) {
+    output << "+-------+" << "  ";
+  } output << endl;
+
+  for(int i = 0; i < D.current; i++) {
+    output << "| " << D[i].rank << "   " << D[i].rank << " |" << "  ";
+  } output << endl;
+
+  for(int i = 1; i < 2; i++) {
+    for(int i = 0; i < D.current; i++) {
+      output << "|   " << D[i].suit << "   |" << "  ";
+    } output << endl;
+  }
+
+  for(int i = 0; i < D.current; i++) {
+    output << "| " << D[i].rank << "   " << D[i].rank << " |" << "  ";
+  } output << endl;
+
+  for(int i = 0; i < D.current; i++) {
+    output << "+-------+" << "  ";
+  }
+
   return output;
 }
 

@@ -1,10 +1,16 @@
 #include "Card.cpp"
+#include "Deck.cpp"
 #include <iostream>
 
 using namespace std;
 
 int main() {
-  Card c = Card("H", 5);
+  Deck D = Deck(5);
 
-  cout << c << endl;
+  D += Card("H", 5);
+  D += Card("D", 9);
+  D += Card("S", 3);
+  D += Card("C", 2);
+
+  cout << D << endl;
 }
