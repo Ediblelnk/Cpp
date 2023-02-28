@@ -6,27 +6,21 @@
 using namespace std;
 
 int main() {
-  AustralianShepherd* asP = new AustralianShepherd(13, "Sticker");
-  AustralianShepherd as(13, "Sticker");
-  Dog* dP = new Dog(10, "Paint", "Jack Russel");
-  Dog d(10, "Paint", "Jack Russel");
+  AustralianShepherd* asP = new AustralianShepherd(13, "Aussie Pointing Aussie");
+  AustralianShepherd as(13, "Aussie");
 
-  Dog* dsP = new AustralianShepherd(15, "Zipper");
-  Pet* psP = new AustralianShepherd(3, "Blinker");
+  asP->print();
+  as.print();
+
+  Dog* dP = new Dog(10, "Dog Pointing Dog", "Jack Russel");
+  Dog d(10, "Dog", "Jack Russel");
+
+  dP->print();
+  d.print();
+
+  Dog* dsP = new AustralianShepherd(15, "Dog Pointing Aussie");
+  Pet* psP = new AustralianShepherd(3, "Pet Pointing Aussie");
 
   dsP->print();
   psP->print();
-
-  asP->print();
-
-  cout << asP->getName() << endl;
-  cout << as.getName() << endl;
-
-  as.print();
-  dP->print();
-
-  cout << dP->getName() << endl;
-  cout << d.getName() << endl;
-
-  d.print();
 }
