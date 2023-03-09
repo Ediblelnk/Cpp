@@ -128,25 +128,29 @@ CLinkedList<eltType> &CLinkedList<eltType>::operator=(const CLinkedList<eltType>
 
 /**
  * @brief Inserts data of type eltType into the circular linked list, based on its '<' value
- * 
- * @tparam eltType 
- * @param data 
+ *
+ * @tparam eltType
+ * @param data
  */
 template <typename eltType>
 void CLinkedList<eltType>::insert(eltType data)
 {
   // first node, insert data and point to itself
   if (!last)
-    last = new Node<eltType>(data, last); /* TEMPORARY DEFINITION */
+    last = new Node<eltType>(data, NULL); /* TEMPORARY DEFINITION */
+  last->next = last;
+  else
+  {
+  }
 }
 
 /**
  * @brief Inserts the values of the circular linked list into a out stream object, with cascading
- * 
- * @tparam eltType 
- * @param out 
- * @param right 
- * @return ostream& 
+ *
+ * @tparam eltType
+ * @param out
+ * @param right
+ * @return ostream&
  */
 template <typename eltType>
 ostream &operator<<(ostream &out, const CLinkedList<eltType> &right)
@@ -273,9 +277,9 @@ bool CListItr<eltType>::isLastNode()
 
 /**
  * @brief Returns the data of the node currently pointed at
- * 
- * @tparam eltType 
- * @return eltType& 
+ *
+ * @tparam eltType
+ * @return eltType&
  */
 template <typename eltType>
 eltType &CListItr<eltType>::operator*()
@@ -285,14 +289,38 @@ eltType &CListItr<eltType>::operator*()
 
 /**
  * @brief Returns the !const! data of the node currently pointed at
- * 
- * @tparam eltType 
- * @return const eltType& 
+ *
+ * @tparam eltType
+ * @return const eltType&
  */
 template <typename eltType>
 const eltType &CListItr<eltType>::operator*() const
 {
   return current->data;
+}
+
+/**
+ * @brief Pre-increment, advances the pointer to the next node, if there is one
+ *
+ * @tparam eltType
+ */
+template <typename eltType>
+void CListItr<eltType>::operator++()
+{
+  if (current)
+    current = current->next;
+}
+
+/**
+ * @brief Post-increment, advances the pointer to the next node, if there is one
+ *
+ * @tparam eltType
+ */
+template <typename eltType>
+void CListItr<eltType>::operator++(int)
+{
+  if (current)
+    current = current->next;
 }
 
 #endif
