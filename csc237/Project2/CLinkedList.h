@@ -5,29 +5,29 @@
 
 using namespace std;
 
-template <typename eltType>
+template <typename T>
 class CLinkedList;
-template <typename eltType>
+template <typename T>
 class CListItr;
 
 /* NODE DECLARATION / DEFINITION */
 
-template <typename eltType>
+template <typename T>
 class Node
 {
 private:
-  Node(eltType info, Node *link = NULL) : data(info), next(link){};
+  Node(T info, Node *link = NULL) : data(info), next(link){};
 
-  eltType data;
+  T data;
   Node *next;
 
-  friend class CLinkedList<eltType>;
-  friend class CListItr<eltType>;
+  friend class CLinkedList<T>;
+  friend class CListItr<T>;
 };
 
 /* CLINKEDLIST DECLARATION */
 
-template <typename eltType>
+template <typename T>
 class CLinkedList
 {
 public:
@@ -37,72 +37,72 @@ public:
 
   CLinkedList &operator=(const CLinkedList &);
 
-  void insert(eltType);
-  bool remove(eltType);
+  void insert(T);
+  bool remove(T);
 
 private:
-  Node<eltType> *copy(Node<eltType> *);
-  void destroy(Node<eltType> *, Node<eltType> *&);
+  Node<T> *copy(Node<T> *);
+  void destroy(Node<T> *, Node<T> *&);
 
-  Node<eltType> *last;
+  Node<T> *last;
 
-  friend class CListItr<eltType>;
+  friend class CListItr<T>;
 };
 
-template <typename eltType>
-ostream &operator<<(ostream &, const CLinkedList<eltType> &);
+template <typename T>
+ostream &operator<<(ostream &, const CLinkedList<T> &);
 
 /* CLISTITR DECLARATION */
 
-template <typename eltType>
+template <typename T>
 class CListItr
 {
 public:
-  CListItr(const CLinkedList<eltType> &clist);
+  CListItr(const CLinkedList<T> &clist);
 
   void begin();
   bool isEmpty();
   bool isFirstNode();
   bool isLastNode();
-  eltType &operator*();
-  const eltType &operator*() const;
+  T &operator*();
+  const T &operator*() const;
   void operator++();
   void operator++(int);
 
 private:
-  const CLinkedList<eltType> &clist;
-  Node<eltType> *current;
+  const CLinkedList<T> &clist;
+  Node<T> *current;
 };
 
 /* CLINKEDLIST DEFINITIONS */
 
 /**
- * @brief Construct a new CLinkedList<eltType>::CLinkedList object
+ * @brief Construct a new CLinkedList<T>::CLinkedList object
  *
- * @tparam eltType
+ * @tparam T
  */
-template <typename eltType>
-CLinkedList<eltType>::CLinkedList() : last(NULL) {}
+template <typename T>
+CLinkedList<T>::CLinkedList() : last(NULL) {}
 
 /**
- * @brief Construct a new CLinkedList<eltType>::CLinkedList object
+ * @brief Construct a new CLinkedList<T>::CLinkedList object
  *
- * @tparam eltType
+ * @tparam T
  * @param cl the list copied
  */
-template <typename eltType>
-CLinkedList<eltType>::CLinkedList(CLinkedList<eltType> &cl)
+template <typename T>
+CLinkedList<T>::CLinkedList(CLinkedList<T> &cl)
 {
   last = copy(cl.last);
 }
 
 /**
- * @brief Destroy the CLinkedList<eltType>::CLinkedList object
+ * @brief Destroy the CLinkedList<T>::CLinkedList object
  *
- * @tparam eltType
+ * @tparam T
  */
-template <typename eltType>
-CLinkedList<eltType>::~CLinkedList()
+template <typename T>
+CLinkedList<T>::~CLinkedList()
 {
   destroy(last, last);
 }
@@ -110,12 +110,12 @@ CLinkedList<eltType>::~CLinkedList()
 /**
  * @brief Copies and assigns the right CLinkedList to this CLinkedList
  *
- * @tparam eltType
+ * @tparam T
  * @param right the right-side CLinkedList
- * @return CLinkedList<eltType>&
+ * @return CLinkedList<T>&
  */
-template <typename eltType>
-CLinkedList<eltType> &CLinkedList<eltType>::operator=(const CLinkedList<eltType> &right)
+template <typename T>
+CLinkedList<T> &CLinkedList<T>::operator=(const CLinkedList<T> &right)
 {
   // if refers to the same CLinkedList, just return the reference
   if (this == &right)
@@ -127,17 +127,17 @@ CLinkedList<eltType> &CLinkedList<eltType>::operator=(const CLinkedList<eltType>
 }
 
 /**
- * @brief Inserts data of type eltType into the circular linked list, based on its '<' value
+ * @brief Inserts data of type T into the circular linked list, based on its '<' value
  *
- * @tparam eltType
+ * @tparam T
  * @param data
  */
-template <typename eltType>
-void CLinkedList<eltType>::insert(eltType data)
+template <typename T>
+void CLinkedList<T>::insert(T data)
 {
   // first node, insert data and point to itself
   if (!last)
-    last = new Node<eltType>(data, NULL); /* TEMPORARY DEFINITION */
+    last = new Node<T>(data); /* TEMPORARY DEFINITION */
   last->next = last;
   else
   {
@@ -147,15 +147,15 @@ void CLinkedList<eltType>::insert(eltType data)
 /**
  * @brief Inserts the values of the circular linked list into a out stream object, with cascading
  *
- * @tparam eltType
+ * @tparam T
  * @param out
  * @param right
  * @return ostream&
  */
-template <typename eltType>
-ostream &operator<<(ostream &out, const CLinkedList<eltType> &right)
+template <typename T>
+ostream &operator<<(ostream &out, const CLinkedList<T> &right)
 {
-  CListItr<eltType> iter(right); /* TEMPORARY DEFINITION */
+  CListItr<T> iter(right); /* TEMPORARY DEFINITION */
   out << *iter;
   return out;
 }
@@ -163,24 +163,24 @@ ostream &operator<<(ostream &out, const CLinkedList<eltType> &right)
 /**
  * @brief Copies a circular linked list starting at Node n
  *
- * @tparam eltType
+ * @tparam T
  * @param n the head node
- * @return Node<eltType>*
+ * @return Node<T>*
  */
-template <typename eltType>
-Node<eltType> *CLinkedList<eltType>::copy(Node<eltType> *n)
+template <typename T>
+Node<T> *CLinkedList<T>::copy(Node<T> *n)
 {
   // if the node is NULL, just return NULL
   if (!n)
     return NULL;
 
   // declare pointers to keep track of beginning for both source and destination
-  Node<eltType> *start = n;
+  Node<T> *start = n;
   // declare and copy first node
-  Node<eltType> *first = last = new Node<eltType>(n->data, NULL);
+  Node<T> *first = last = new Node<T>(n->data);
   // copy all of the remainder nodes but stop once reach the beginning again
   for (n = n->next; n != start; n = n->next, last = last->next)
-    last->next = new Node<eltType>(n->data, NULL);
+    last->next = new Node<T>(n->data);
   // reassign the end of the list to the beginning node
   last->next = first;
   return first;
@@ -189,17 +189,17 @@ Node<eltType> *CLinkedList<eltType>::copy(Node<eltType> *n)
 /**
  * @brief Deletes the head node and every node following it
  *
- * @tparam eltType
+ * @tparam T
  * @param n the head node
  */
-template <class eltType>
-void CLinkedList<eltType>::destroy(Node<eltType> *n, Node<eltType> *&start)
+template <class T>
+void CLinkedList<T>::destroy(Node<T> *n, Node<T> *&start)
 {
   if (n)
   {
 
     // delete the passed node and follow to the next node
-    Node<eltType> *doomed = n;
+    Node<T> *doomed = n;
     n = n->next;
     delete doomed;
     // if not back at the beginning of the list, delete the next node
@@ -211,22 +211,22 @@ void CLinkedList<eltType>::destroy(Node<eltType> *n, Node<eltType> *&start)
 /* CLISTITR DEFINITIONS */
 
 /**
- * @brief Construct a new CListItr<eltType>::CListItr object
+ * @brief Construct a new CListItr<T>::CListItr object
  *
- * @tparam eltType
+ * @tparam T
  * @param clist
  */
-template <typename eltType>
-CListItr<eltType>::CListItr(const CLinkedList<eltType> &clist) : clist(clist),
-                                                                 current(clist.last) {}
+template <typename T>
+CListItr<T>::CListItr(const CLinkedList<T> &clist) : clist(clist),
+                                                     current(clist.last) {}
 
 /**
  * @brief Sets the iterator to the first node of the linked list, or NULL if the list is empty
  *
- * @tparam eltType
+ * @tparam T
  */
-template <typename eltType>
-void CListItr<eltType>::begin()
+template <typename T>
+void CListItr<T>::begin()
 {
   // list has at least one element
   if (clist.last)
@@ -239,12 +239,12 @@ void CListItr<eltType>::begin()
 /**
  * @brief Returns whether or not the circular linked list is empty
  *
- * @tparam eltType
+ * @tparam T
  * @return true
  * @return false
  */
-template <typename eltType>
-bool CListItr<eltType>::isEmpty()
+template <typename T>
+bool CListItr<T>::isEmpty()
 {
   return clist.last == NULL;
 }
@@ -252,12 +252,12 @@ bool CListItr<eltType>::isEmpty()
 /**
  * @brief Returns whether the present node is the first node of the circular linked list
  *
- * @tparam eltType
+ * @tparam T
  * @return true
  * @return false
  */
-template <typename eltType>
-bool CListItr<eltType>::isFirstNode()
+template <typename T>
+bool CListItr<T>::isFirstNode()
 {
   return current == clist.last->next;
 }
@@ -265,12 +265,12 @@ bool CListItr<eltType>::isFirstNode()
 /**
  * @brief Returns whether the present node is the last node of the circular liked list
  *
- * @tparam eltType
+ * @tparam T
  * @return true
  * @return false
  */
-template <typename eltType>
-bool CListItr<eltType>::isLastNode()
+template <typename T>
+bool CListItr<T>::isLastNode()
 {
   return current == clist.last;
 }
@@ -278,11 +278,11 @@ bool CListItr<eltType>::isLastNode()
 /**
  * @brief Returns the data of the node currently pointed at
  *
- * @tparam eltType
- * @return eltType&
+ * @tparam T
+ * @return T&
  */
-template <typename eltType>
-eltType &CListItr<eltType>::operator*()
+template <typename T>
+T &CListItr<T>::operator*()
 {
   return current->data;
 }
@@ -290,11 +290,11 @@ eltType &CListItr<eltType>::operator*()
 /**
  * @brief Returns the !const! data of the node currently pointed at
  *
- * @tparam eltType
- * @return const eltType&
+ * @tparam T
+ * @return const T&
  */
-template <typename eltType>
-const eltType &CListItr<eltType>::operator*() const
+template <typename T>
+const T &CListItr<T>::operator*() const
 {
   return current->data;
 }
@@ -302,10 +302,10 @@ const eltType &CListItr<eltType>::operator*() const
 /**
  * @brief Pre-increment, advances the pointer to the next node, if there is one
  *
- * @tparam eltType
+ * @tparam T
  */
-template <typename eltType>
-void CListItr<eltType>::operator++()
+template <typename T>
+void CListItr<T>::operator++()
 {
   if (current)
     current = current->next;
@@ -314,10 +314,10 @@ void CListItr<eltType>::operator++()
 /**
  * @brief Post-increment, advances the pointer to the next node, if there is one
  *
- * @tparam eltType
+ * @tparam T
  */
-template <typename eltType>
-void CListItr<eltType>::operator++(int)
+template <typename T>
+void CListItr<T>::operator++(int)
 {
   if (current)
     current = current->next;
