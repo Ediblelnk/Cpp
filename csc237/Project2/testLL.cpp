@@ -9,31 +9,43 @@ void print_menu();
 int main()
 {
   CLinkedList<int> clist;
-  int input;
 
-  print_menu();
+  clist.insert(12);
 
-  cin >> input;
+  cout << clist << endl;
 
-  clist.insert(input);
-  clist.insert(input + 1);
-  clist.insert(input + 2);
+  clist.insert(10);
 
-  cout << endl
-       << clist << endl;
+  cout << clist << endl;
+
+  clist.insert(13);
+
+  cout << clist << endl;
+
+  clist.insert(15);
+
+  cout << clist << endl;
+
+  clist.insert(9);
+
+  cout << clist << endl;
+
+  clist.insert(11);
+
+  cout << clist << endl;
 }
 
 void print_menu()
 {
-  cout << ".----------------------." << endl
-       << "|         Menu         |" << endl
-       << "|----------------------|" << endl
-       << "| I < > Insert Integer |" << endl
-       << "| R < > Remove Integer |" << endl
-       << "| F < > Forward Print  |" << endl
-       << "| B < > Backward Print |" << endl
-       << "| E < > Exit           |" << endl
-       << "*----------------------*" << endl
+  cout << ".--------------------." << endl
+       << "|        Menu        |" << endl
+       << "|--------------------|" << endl
+       << "| I - Insert Integer |" << endl
+       << "| R - Remove Integer |" << endl
+       << "| F - Forward Print  |" << endl
+       << "| B - Backward Print |" << endl
+       << "| E - Exit           |" << endl
+       << "*--------------------*" << endl
        << endl
-       << "      Your Choice: ";
+       << "     Your Choice: ";
 }
