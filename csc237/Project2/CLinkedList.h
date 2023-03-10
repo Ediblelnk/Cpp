@@ -135,12 +135,46 @@ CLinkedList<T> &CLinkedList<T>::operator=(const CLinkedList<T> &right)
 template <typename T>
 void CLinkedList<T>::insert(T data)
 {
-  // first node, insert data and point to itself
-  if (!last)
-    last = new Node<T>(data); /* TEMPORARY DEFINITION */
-  last->next = last;
-  else
+  if (!last) // first node, insert data and point to itself
   {
+    last = new Node<T>(data);
+    last->next = last;
+  }
+  else if (last == last->next) // second node addition
+  {
+    last->next = new Node<T>(data, last);
+    if (last->next->data > last->data)
+      last = last->next;
+  }
+  else if (data < last->next->data) // data is a minimum value, insert at head
+  {
+    last->next = new Node<T>(data, last->next);
+  }
+  else if (last->data < data) // data is a maximum value, insert at last
+  {
+    last->next = new Node<T>(data, last->next);
+    last = last->next;
+  }
+  else // data is a middle value
+  {
+    Node<T> *trailP = last->next;
+    Node<T> *p = last->next->next;
+    for (; p != last && p->data < data; trailP = p, p = p->next)
+      ;
+    trailP->next = new Node<T>(data, p);
+  }
+}
+
+template <typename T>
+bool CLinkedList<T>::remove(T data)
+{
+  if (!last) // empty list, return false
+    return false;
+  if (last->data == data) // normal removal would invalidate *last
+  {
+    Node<T> *trailLast = last;
+    for (; trailLast->next != last; trailLast = trailLast->next)
+      ;
   }
 }
 
@@ -155,8 +189,10 @@ void CLinkedList<T>::insert(T data)
 template <typename T>
 ostream &operator<<(ostream &out, const CLinkedList<T> &right)
 {
-  CListItr<T> iter(right); /* TEMPORARY DEFINITION */
-  out << *iter;
+  CListItr<T> iter(right);
+  for (iter.begin(); !iter.isLastNode(); iter++)
+    out << *iter << " ";
+  out << *iter << endl;
   return out;
 }
 
@@ -197,7 +233,6 @@ void CLinkedList<T>::destroy(Node<T> *n, Node<T> *&start)
 {
   if (n)
   {
-
     // delete the passed node and follow to the next node
     Node<T> *doomed = n;
     n = n->next;
