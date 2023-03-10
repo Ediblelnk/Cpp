@@ -14,7 +14,15 @@ int main()
 
   cout << clist << endl;
 
+  clist.remove(12);
+
+  cout << clist << endl;
+
   clist.insert(10);
+
+  cout << clist << endl;
+
+  clist.remove(12);
 
   cout << clist << endl;
 
@@ -31,6 +39,11 @@ int main()
   cout << clist << endl;
 
   clist.insert(11);
+
+  cout << clist << endl;
+
+  clist.remove(15);
+  clist.remove(13);
 
   cout << clist << endl;
 }

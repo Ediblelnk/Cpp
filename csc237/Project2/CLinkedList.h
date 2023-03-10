@@ -140,12 +140,6 @@ void CLinkedList<T>::insert(T data)
     last = new Node<T>(data);
     last->next = last;
   }
-  else if (last == last->next) // second node addition
-  {
-    last->next = new Node<T>(data, last);
-    if (last->next->data > last->data)
-      last = last->next;
-  }
   else if (data < last->next->data) // data is a minimum value, insert at head
   {
     last->next = new Node<T>(data, last->next);
@@ -170,11 +164,25 @@ bool CLinkedList<T>::remove(T data)
 {
   if (!last) // empty list, return false
     return false;
-  if (last->data == data) // normal removal would invalidate *last
+  if (last->data == data && last == last->next) // removal at last and just 1 element
+  {
+    delete last;
+    last = NULL;
+    return true;
+  }
+  if (last->data == data) // removal at last
   {
     Node<T> *trailLast = last;
     for (; trailLast->next != last; trailLast = trailLast->next)
       ;
+    trailLast->next = last->next;
+    delete last;
+    last = trailLast;
+    return true;
+  }
+  else // removal at anywhere else in the list
+  {
+    return false;
   }
 }
 
@@ -190,9 +198,12 @@ template <typename T>
 ostream &operator<<(ostream &out, const CLinkedList<T> &right)
 {
   CListItr<T> iter(right);
-  for (iter.begin(); !iter.isLastNode(); iter++)
-    out << *iter << " ";
-  out << *iter << endl;
+  if (!iter.isEmpty())
+  {
+    for (iter.begin(); !iter.isLastNode(); iter++)
+      out << *iter << " ";
+    out << *iter;
+  }
   return out;
 }
 
