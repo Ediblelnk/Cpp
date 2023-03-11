@@ -128,9 +128,9 @@ CLinkedList<T> &CLinkedList<T>::operator=(const CLinkedList<T> &right)
 
 /**
  * @brief Inserts data of type T into the circular linked list, based on its '<' value
- *
- * @tparam T
- * @param data
+ * 
+ * @tparam T 
+ * @param data 
  */
 template <typename T>
 void CLinkedList<T>::insert(T data)
@@ -159,6 +159,14 @@ void CLinkedList<T>::insert(T data)
   }
 }
 
+/**
+ * @brief Removes an element from the circular linked list
+ *
+ * @tparam T
+ * @param data
+ * @return true
+ * @return false
+ */
 template <typename T>
 bool CLinkedList<T>::remove(T data)
 {
@@ -182,7 +190,16 @@ bool CLinkedList<T>::remove(T data)
   }
   else // removal at anywhere else in the list
   {
-    return false;
+    Node<T> *trailP = last;
+    Node<T> *p = last->next;
+    for (; p != last && p->data != data; trailP = p, p = p->next)
+      ;
+    if (p == last) // data was not found in the list, return false
+      return false;
+    // data was found in the list, remove and return true
+    trailP->next = p->next;
+    delete p;
+    return true;
   }
 }
 

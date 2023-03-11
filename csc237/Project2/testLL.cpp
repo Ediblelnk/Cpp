@@ -10,41 +10,18 @@ int main()
 {
   CLinkedList<int> clist;
 
-  clist.insert(12);
-
-  cout << clist << endl;
-
-  clist.remove(12);
-
-  cout << clist << endl;
-
-  clist.insert(10);
-
-  cout << clist << endl;
-
-  clist.remove(12);
-
-  cout << clist << endl;
-
-  clist.insert(13);
-
-  cout << clist << endl;
-
-  clist.insert(15);
-
-  cout << clist << endl;
-
   clist.insert(9);
-
+  clist.insert(10);
+  clist.insert(8);
+  clist.insert(7);
+  clist.insert(9);
+  clist.insert(13);
   cout << clist << endl;
-
-  clist.insert(11);
-
+  clist.remove(11);
   cout << clist << endl;
-
-  clist.remove(15);
-  clist.remove(13);
-
+  clist.insert(9);
+  cout << clist << endl;
+  clist.remove(7);
   cout << clist << endl;
 }
 
