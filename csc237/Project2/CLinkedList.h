@@ -1,3 +1,13 @@
+/**
+ * @file CLinkedList.h
+ * @author Peter Schaefer (pscha710@live.kutztown.edu)
+ * @brief Class definition for a Circular Linked List, complete with iterator.
+ * @version 0.1
+ * @date 2023-03-11
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
 #ifndef CLINKEDLIST_H
 #define CLINKEDLIST_H
 
@@ -21,6 +31,12 @@ template <typename T>
 class Node
 {
 private:
+  /**
+   * @brief MUTATOR: Construct a new Node object
+   *
+   * @param info IMPORT: data held by the Node
+   * @param link IMPORT: pointer to the next Node
+   */
   Node(T info, Node *link = NULL) : data(info), next(link){};
 
   /**
@@ -51,87 +67,87 @@ class CLinkedList
 {
 public:
   /**
-   * @brief Construct a new CLinkedList<T>::CLinkedList object
+   * @brief MUTATOR: Construct a new CLinkedList<T>::CLinkedList object
    *
    * @tparam T
    */
   CLinkedList();
 
   /**
-   * @brief Construct a new CLinkedList<T>::CLinkedList object
+   * @brief MUTATOR: Copies a new CLinkedList<T>::CLinkedList object
    *
    * @tparam T
-   * @param cl the list copied
+   * @param cl IMPORT: the list copied
    */
   CLinkedList(CLinkedList &cl);
 
   /**
-   * @brief Destroy the CLinkedList<T>::CLinkedList object
+   * @brief MUTATOR: Destroy the CLinkedList<T>::CLinkedList object
    *
    * @tparam T
    */
   ~CLinkedList();
 
   /**
-   * @brief Copies and assigns the right CLinkedList to this CLinkedList
+   * @brief MUTATOR: Copies and assigns the right CLinkedList to this CLinkedList
    *
    * @tparam T
-   * @param right the right-side CLinkedList
+   * @param right IMPORT: the right-side CLinkedList
    * @return CLinkedList<T>&
    */
   CLinkedList &operator=(const CLinkedList &right);
 
   /**
-   * @brief Inserts data of type T into the Circular Linked List, based on its '<' value
+   * @brief MUTATOR: Inserts data of type T into the Circular Linked List, based on its '<' value
    *
    * @tparam T
-   * @param data value of type T inserted into the Circular Linked List
+   * @param data IMPORT: value of type T inserted into the Circular Linked List
    */
   void insert(T data);
 
   /**
-   * @brief Removes an element from the Circular Linked List
+   * @brief MUTATOR: Removes an element from the Circular Linked List
    *
    * @tparam T
-   * @param data element
+   * @param data IMPORT: element
    * @return true
    * @return false
    */
   bool remove(T data);
 
   /**
-   * @brief Prints out the Circular Linked List in reverse order
+   * @brief FACILITATOR: Prints out the Circular Linked List in reverse order
    *
    * @tparam T
-   * @param out ostream object loaded
+   * @param out IMPORT:EXPORT: ostream object loaded
    * @return ostream&
    */
   ostream &printReverse(ostream &out);
 
 private:
   /**
-   * @brief Copies a Circular Linked List starting at Node n
+   * @brief MUTATOR: Copies a Circular Linked List starting at Node n
    *
    * @tparam T
-   * @param n the head Node
+   * @param n IMPORT: the head Node
    * @return Node<T>*
    */
   Node<T> *copy(Node<T> *n);
 
   /**
-   * @brief Deletes the head Node and every Node following it
+   * @brief MUTATOR: Deletes the head Node and every Node following it
    *
    * @tparam T
-   * @param n the head Node
+   * @param n IMPORT:EXPORT: the head Node
    */
   void destroy(Node<T> *, Node<T> *&);
 
   /**
-   * @brief Called by printReverse to recursively print the Circular Linked List in reverse order
+   * @brief FACILITATOR: Called by printReverse to recursively print the Circular Linked List in reverse order
    *
    * @tparam T
-   * @param out ostream object loaded
-   * @param n current Node printed, recursive value
+   * @param out IMPORT:EXPORT: ostream object loaded
+   * @param n IMPORT:EXPORT: current Node printed, recursive value
    * @return ostream&
    */
   ostream &recursiveReverse(ostream &out, Node<T> *n);
@@ -146,11 +162,11 @@ private:
 };
 
 /**
- * @brief Inserts the values of the Circular Linked List into a out stream object, with cascading
+ * @brief FACILITATOR: Inserts the values of the Circular Linked List into a out stream object, with cascading
  *
  * @tparam T
- * @param out ostream being extracted to
- * @param right Circular Linked List being extracted
+ * @param out IMPORT:EXPORT: ostream being extracted to
+ * @param right IMPORT: Circular Linked List being extracted
  * @return ostream&
  */
 template <typename T>
@@ -168,22 +184,22 @@ class CListItr
 {
 public:
   /**
-   * @brief Construct a new CListItr<T>::CListItr object
+   * @brief MUTATOR: Construct a new CListItr<T>::CListItr object
    *
    * @tparam T
-   * @param clist
+   * @param clist IMPORT: Circular Linked List iterator is attached to
    */
   CListItr(const CLinkedList<T> &clist);
 
   /**
-   * @brief Sets the iterator to the first Node of the linked list, or NULL if the list is empty
+   * @brief MUTATOR: Sets the iterator to the first Node of the linked list, or NULL if the list is empty
    *
    * @tparam T
    */
   void begin();
 
   /**
-   * @brief Returns whether or not the Circular Linked List is empty
+   * @brief INSPECTOR: Returns whether or not the Circular Linked List is empty
    *
    * @tparam T
    * @return true
@@ -192,7 +208,7 @@ public:
   bool isEmpty();
 
   /**
-   * @brief Returns whether the present Node is the first Node of the Circular Linked List
+   * @brief INSPECTOR: Returns whether the present Node is the first Node of the Circular Linked List
    *
    * @tparam T
    * @return true
@@ -201,7 +217,7 @@ public:
   bool isFirstNode();
 
   /**
-   * @brief Returns whether the present Node is the last Node of the circular liked list
+   * @brief INSPECTOR: Returns whether the present Node is the last Node of the circular liked list
    *
    * @tparam T
    * @return true
@@ -210,7 +226,7 @@ public:
   bool isLastNode();
 
   /**
-   * @brief Returns the data of the Node currently pointed at
+   * @brief INSPECTOR:MUTATOR: Returns the data of the Node currently pointed at
    *
    * @tparam T
    * @return T&
@@ -218,7 +234,7 @@ public:
   T &operator*();
 
   /**
-   * @brief Returns the !const! data of the Node currently pointed at
+   * @brief INSPECTOR: Returns the !const! data of the Node currently pointed at
    *
    * @tparam T
    * @return const T&
@@ -226,14 +242,14 @@ public:
   const T &operator*() const;
 
   /**
-   * @brief Pre-increment, advances the pointer to the next Node, if there is one
+   * @brief INSPECTOR:MUTATOR: Pre-increment, advances the pointer to the next Node, if there is one
    *
    * @return CListItr<T>&
    */
   CListItr<T> &operator++();
 
   /**
-   * @brief Post-increment, advances the pointer to the next Node, if there is one
+   * @brief INSPECTOR:MUTATOR: Post-increment, advances the pointer to the next Node, if there is one
    *
    * @return CListItr<T>
    */
@@ -349,10 +365,13 @@ template <typename T>
 ostream &operator<<(ostream &out, const CLinkedList<T> &right)
 {
   CListItr<T> iter(right);
+  // iterator needs to refer to a linked list WITH elements
   if (!iter.isEmpty())
   {
+    // extract elements until final node
     for (iter.begin(); !iter.isLastNode(); iter++)
       out << *iter << " ";
+    // extract final node
     out << *iter;
   }
   return out;
@@ -361,6 +380,7 @@ ostream &operator<<(ostream &out, const CLinkedList<T> &right)
 template <typename T>
 ostream &CLinkedList<T>::printReverse(ostream &out)
 {
+  // call helper function
   recursiveReverse(out, last->next);
   return out;
 }
@@ -368,10 +388,13 @@ ostream &CLinkedList<T>::printReverse(ostream &out)
 template <typename T>
 ostream &CLinkedList<T>::recursiveReverse(ostream &out, Node<T> *n)
 {
+  // needs to refer to a linked list WITH elements
   if (last)
   {
+    // print previous element before this element, unless last element
     if (n != last)
       recursiveReverse(out, n->next);
+    // all previous elements have been printed, print this element
     out << n->data << " ";
   }
   return out;

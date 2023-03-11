@@ -1,3 +1,13 @@
+/**
+ * @file testLL.cpp
+ * @author Peter Schaefer (pscha710@live.kutztown.edu)
+ * @brief Interactive demo for the implementation of a circular linked list
+ * @version 0.1
+ * @date 2023-03-11
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
 #include <iostream>
 
 #include "CLinkedList.h"
@@ -5,36 +15,36 @@
 using namespace std;
 
 /**
- * @brief Prints the menu for the user to choose from
+ * @brief FACILITATOR: Prints the menu for the user to choose from
  *
  */
 void print_menu();
 
 /**
- * @brief Prompts the user and inserts the inputted integer into the circular linked list
+ * @brief MUTATOR: Prompts the user and inserts the inputted integer into the circular linked list
  *
- * @param clist circular linked list integer is inserted to
+ * @param clist EXPORT: circular linked list integer is inserted to
  */
 void insert_integer(CLinkedList<int> &clist);
 
 /**
- * @brief Prompts the user and attempts to remove the requested integer from the circular linked list
+ * @brief MUTATOR: Prompts the user and attempts to remove the requested integer from the circular linked list
  *
- * @param clist circular linked list integer is removed from
+ * @param clist EXPORT: circular linked list integer is removed from
  */
 void remove_integer(CLinkedList<int> &clist);
 
 /**
- * @brief Prints the circular linked list in the "forward" direction
+ * @brief FACILITATOR: Prints the circular linked list in the "forward" direction
  *
- * @param clist circular linked list printed
+ * @param clist IMPORT: circular linked list printed
  */
 void forward_print(CLinkedList<int> &clist);
 
 /**
- * @brief Prints the circular linked list in the "backward" direction
+ * @brief FACILITATOR: Prints the circular linked list in the "backward" direction
  *
- * @param clist circular linked list printed
+ * @param clist IMPORT: circular linked list printed
  */
 void backward_print(CLinkedList<int> &clist);
 
@@ -47,16 +57,19 @@ void backward_print(CLinkedList<int> &clist);
  */
 int main()
 {
+  // variables
   CLinkedList<int> clist;
   char menuInput;
   bool loop_flag = true;
 
+  // program loop
   while (loop_flag)
   {
+    // preamble
     print_menu();
-
     cin >> menuInput;
 
+    // do action
     switch (menuInput)
     {
     case 'I':
@@ -106,11 +119,13 @@ void insert_integer(CLinkedList<int> &clist)
 {
   int value;
 
+  // get value to insert
   cout << endl
        << "   Integer to add: ";
-
   cin >> value;
   cout << endl;
+
+  // insert value
   clist.insert(value);
 }
 
@@ -118,14 +133,18 @@ void remove_integer(CLinkedList<int> &clist)
 {
   int value;
 
+  // get value to remove
   cout << endl
        << "Integer to remove: ";
   cin >> value;
 
+  // attempt to remove value
   if (clist.remove(value))
+    // able to remove
     cout << endl
          << "Integer removed successfully" << endl;
   else
+    // unable to remove
     cout << endl
          << "ERROR: Integer not found in Circular Linked List" << endl
          << endl;
@@ -134,7 +153,7 @@ void remove_integer(CLinkedList<int> &clist)
 void forward_print(CLinkedList<int> &clist)
 {
   cout << endl
-       << "Current List:" << endl
+       << "Current List Forwards:" << endl
        << clist << endl
        << endl;
 }
@@ -142,7 +161,7 @@ void forward_print(CLinkedList<int> &clist)
 void backward_print(CLinkedList<int> &clist)
 {
   cout << endl
-       << "Current List:" << endl;
+       << "Current List Backwards:" << endl;
   clist.printReverse(cout);
   cout << endl
        << endl;
