@@ -12,13 +12,27 @@ class CListItr;
 
 /* NODE DECLARATION / DEFINITION */
 
+/**
+ * @brief A Node of type T holds data of type T and a pointer to another Node
+ *
+ * @tparam T
+ */
 template <typename T>
 class Node
 {
 private:
   Node(T info, Node *link = NULL) : data(info), next(link){};
 
+  /**
+   * @brief Data held by a Node
+   *
+   */
   T data;
+
+  /**
+   * @brief Pointer to next Node
+   *
+   */
   Node *next;
 
   friend class CLinkedList<T>;
@@ -27,93 +41,235 @@ private:
 
 /* CLINKEDLIST DECLARATION */
 
+/**
+ * @brief A Circular Linked List, a list where the last Node points back to the first Node
+ *
+ * @tparam T
+ */
 template <typename T>
 class CLinkedList
 {
 public:
+  /**
+   * @brief Construct a new CLinkedList<T>::CLinkedList object
+   *
+   * @tparam T
+   */
   CLinkedList();
-  CLinkedList(CLinkedList &);
+
+  /**
+   * @brief Construct a new CLinkedList<T>::CLinkedList object
+   *
+   * @tparam T
+   * @param cl the list copied
+   */
+  CLinkedList(CLinkedList &cl);
+
+  /**
+   * @brief Destroy the CLinkedList<T>::CLinkedList object
+   *
+   * @tparam T
+   */
   ~CLinkedList();
 
-  CLinkedList &operator=(const CLinkedList &);
+  /**
+   * @brief Copies and assigns the right CLinkedList to this CLinkedList
+   *
+   * @tparam T
+   * @param right the right-side CLinkedList
+   * @return CLinkedList<T>&
+   */
+  CLinkedList &operator=(const CLinkedList &right);
 
-  void insert(T);
-  bool remove(T);
+  /**
+   * @brief Inserts data of type T into the Circular Linked List, based on its '<' value
+   *
+   * @tparam T
+   * @param data value of type T inserted into the Circular Linked List
+   */
+  void insert(T data);
+
+  /**
+   * @brief Removes an element from the Circular Linked List
+   *
+   * @tparam T
+   * @param data element
+   * @return true
+   * @return false
+   */
+  bool remove(T data);
+
+  /**
+   * @brief Prints out the Circular Linked List in reverse order
+   *
+   * @tparam T
+   * @param out ostream object loaded
+   * @return ostream&
+   */
+  ostream &printReverse(ostream &out);
 
 private:
-  Node<T> *copy(Node<T> *);
+  /**
+   * @brief Copies a Circular Linked List starting at Node n
+   *
+   * @tparam T
+   * @param n the head Node
+   * @return Node<T>*
+   */
+  Node<T> *copy(Node<T> *n);
+
+  /**
+   * @brief Deletes the head Node and every Node following it
+   *
+   * @tparam T
+   * @param n the head Node
+   */
   void destroy(Node<T> *, Node<T> *&);
 
+  /**
+   * @brief Called by printReverse to recursively print the Circular Linked List in reverse order
+   *
+   * @tparam T
+   * @param out ostream object loaded
+   * @param n current Node printed, recursive value
+   * @return ostream&
+   */
+  ostream &recursiveReverse(ostream &out, Node<T> *n);
+
+  /**
+   * @brief Pointer to the last Node in the Circular Linked List
+   *
+   */
   Node<T> *last;
 
   friend class CListItr<T>;
 };
 
+/**
+ * @brief Inserts the values of the Circular Linked List into a out stream object, with cascading
+ *
+ * @tparam T
+ * @param out ostream being extracted to
+ * @param right Circular Linked List being extracted
+ * @return ostream&
+ */
 template <typename T>
-ostream &operator<<(ostream &, const CLinkedList<T> &);
+ostream &operator<<(ostream &out, const CLinkedList<T> &right);
 
 /* CLISTITR DECLARATION */
 
+/**
+ * @brief A Circular Linked List Iterator, provides ability to iterator through the Circular Linked List
+ *
+ * @tparam T
+ */
 template <typename T>
 class CListItr
 {
 public:
+  /**
+   * @brief Construct a new CListItr<T>::CListItr object
+   *
+   * @tparam T
+   * @param clist
+   */
   CListItr(const CLinkedList<T> &clist);
 
+  /**
+   * @brief Sets the iterator to the first Node of the linked list, or NULL if the list is empty
+   *
+   * @tparam T
+   */
   void begin();
+
+  /**
+   * @brief Returns whether or not the Circular Linked List is empty
+   *
+   * @tparam T
+   * @return true
+   * @return false
+   */
   bool isEmpty();
+
+  /**
+   * @brief Returns whether the present Node is the first Node of the Circular Linked List
+   *
+   * @tparam T
+   * @return true
+   * @return false
+   */
   bool isFirstNode();
+
+  /**
+   * @brief Returns whether the present Node is the last Node of the circular liked list
+   *
+   * @tparam T
+   * @return true
+   * @return false
+   */
   bool isLastNode();
+
+  /**
+   * @brief Returns the data of the Node currently pointed at
+   *
+   * @tparam T
+   * @return T&
+   */
   T &operator*();
+
+  /**
+   * @brief Returns the !const! data of the Node currently pointed at
+   *
+   * @tparam T
+   * @return const T&
+   */
   const T &operator*() const;
-  void operator++();
-  void operator++(int);
+
+  /**
+   * @brief Pre-increment, advances the pointer to the next Node, if there is one
+   *
+   * @return CListItr<T>&
+   */
+  CListItr<T> &operator++();
+
+  /**
+   * @brief Post-increment, advances the pointer to the next Node, if there is one
+   *
+   * @return CListItr<T>
+   */
+  CListItr<T> operator++(int);
 
 private:
+  /**
+   * @brief Constant reference to Circular Linked List that the Iterator is attached to
+   *
+   */
   const CLinkedList<T> &clist;
+
+  /**
+   * @brief Pointer to the iterator's current Node
+   *
+   */
   Node<T> *current;
 };
 
 /* CLINKEDLIST DEFINITIONS */
 
-/**
- * @brief Construct a new CLinkedList<T>::CLinkedList object
- *
- * @tparam T
- */
 template <typename T>
 CLinkedList<T>::CLinkedList() : last(NULL) {}
 
-/**
- * @brief Construct a new CLinkedList<T>::CLinkedList object
- *
- * @tparam T
- * @param cl the list copied
- */
 template <typename T>
 CLinkedList<T>::CLinkedList(CLinkedList<T> &cl)
 {
   last = copy(cl.last);
 }
 
-/**
- * @brief Destroy the CLinkedList<T>::CLinkedList object
- *
- * @tparam T
- */
 template <typename T>
 CLinkedList<T>::~CLinkedList()
 {
   destroy(last, last);
 }
 
-/**
- * @brief Copies and assigns the right CLinkedList to this CLinkedList
- *
- * @tparam T
- * @param right the right-side CLinkedList
- * @return CLinkedList<T>&
- */
 template <typename T>
 CLinkedList<T> &CLinkedList<T>::operator=(const CLinkedList<T> &right)
 {
@@ -126,16 +282,10 @@ CLinkedList<T> &CLinkedList<T>::operator=(const CLinkedList<T> &right)
   return *this;
 }
 
-/**
- * @brief Inserts data of type T into the circular linked list, based on its '<' value
- * 
- * @tparam T 
- * @param data 
- */
 template <typename T>
 void CLinkedList<T>::insert(T data)
 {
-  if (!last) // first node, insert data and point to itself
+  if (!last) // first Node, insert data and point to itself
   {
     last = new Node<T>(data);
     last->next = last;
@@ -159,14 +309,6 @@ void CLinkedList<T>::insert(T data)
   }
 }
 
-/**
- * @brief Removes an element from the circular linked list
- *
- * @tparam T
- * @param data
- * @return true
- * @return false
- */
 template <typename T>
 bool CLinkedList<T>::remove(T data)
 {
@@ -203,14 +345,6 @@ bool CLinkedList<T>::remove(T data)
   }
 }
 
-/**
- * @brief Inserts the values of the circular linked list into a out stream object, with cascading
- *
- * @tparam T
- * @param out
- * @param right
- * @return ostream&
- */
 template <typename T>
 ostream &operator<<(ostream &out, const CLinkedList<T> &right)
 {
@@ -224,48 +358,54 @@ ostream &operator<<(ostream &out, const CLinkedList<T> &right)
   return out;
 }
 
-/**
- * @brief Copies a circular linked list starting at Node n
- *
- * @tparam T
- * @param n the head node
- * @return Node<T>*
- */
+template <typename T>
+ostream &CLinkedList<T>::printReverse(ostream &out)
+{
+  recursiveReverse(out, last->next);
+  return out;
+}
+
+template <typename T>
+ostream &CLinkedList<T>::recursiveReverse(ostream &out, Node<T> *n)
+{
+  if (last)
+  {
+    if (n != last)
+      recursiveReverse(out, n->next);
+    out << n->data << " ";
+  }
+  return out;
+}
+
 template <typename T>
 Node<T> *CLinkedList<T>::copy(Node<T> *n)
 {
-  // if the node is NULL, just return NULL
+  // if the Node is NULL, just return NULL
   if (!n)
     return NULL;
 
   // declare pointers to keep track of beginning for both source and destination
   Node<T> *start = n;
-  // declare and copy first node
+  // declare and copy first Node
   Node<T> *first = last = new Node<T>(n->data);
   // copy all of the remainder nodes but stop once reach the beginning again
   for (n = n->next; n != start; n = n->next, last = last->next)
     last->next = new Node<T>(n->data);
-  // reassign the end of the list to the beginning node
+  // reassign the end of the list to the beginning Node
   last->next = first;
   return first;
 }
 
-/**
- * @brief Deletes the head node and every node following it
- *
- * @tparam T
- * @param n the head node
- */
 template <class T>
 void CLinkedList<T>::destroy(Node<T> *n, Node<T> *&start)
 {
   if (n)
   {
-    // delete the passed node and follow to the next node
+    // delete the passed Node and follow to the next Node
     Node<T> *doomed = n;
     n = n->next;
     delete doomed;
-    // if not back at the beginning of the list, delete the next node
+    // if not back at the beginning of the list, delete the next Node
     if (n != start)
       destroy(n, start);
   }
@@ -273,21 +413,10 @@ void CLinkedList<T>::destroy(Node<T> *n, Node<T> *&start)
 
 /* CLISTITR DEFINITIONS */
 
-/**
- * @brief Construct a new CListItr<T>::CListItr object
- *
- * @tparam T
- * @param clist
- */
 template <typename T>
 CListItr<T>::CListItr(const CLinkedList<T> &clist) : clist(clist),
                                                      current(clist.last) {}
 
-/**
- * @brief Sets the iterator to the first node of the linked list, or NULL if the list is empty
- *
- * @tparam T
- */
 template <typename T>
 void CListItr<T>::begin()
 {
@@ -299,91 +428,50 @@ void CListItr<T>::begin()
     current = NULL;
 }
 
-/**
- * @brief Returns whether or not the circular linked list is empty
- *
- * @tparam T
- * @return true
- * @return false
- */
 template <typename T>
 bool CListItr<T>::isEmpty()
 {
   return clist.last == NULL;
 }
 
-/**
- * @brief Returns whether the present node is the first node of the circular linked list
- *
- * @tparam T
- * @return true
- * @return false
- */
 template <typename T>
 bool CListItr<T>::isFirstNode()
 {
   return current == clist.last->next;
 }
 
-/**
- * @brief Returns whether the present node is the last node of the circular liked list
- *
- * @tparam T
- * @return true
- * @return false
- */
 template <typename T>
 bool CListItr<T>::isLastNode()
 {
   return current == clist.last;
 }
 
-/**
- * @brief Returns the data of the node currently pointed at
- *
- * @tparam T
- * @return T&
- */
 template <typename T>
 T &CListItr<T>::operator*()
 {
   return current->data;
 }
 
-/**
- * @brief Returns the !const! data of the node currently pointed at
- *
- * @tparam T
- * @return const T&
- */
 template <typename T>
 const T &CListItr<T>::operator*() const
 {
   return current->data;
 }
 
-/**
- * @brief Pre-increment, advances the pointer to the next node, if there is one
- *
- * @tparam T
- */
 template <typename T>
-void CListItr<T>::operator++()
+CListItr<T> &CListItr<T>::operator++()
 {
   if (current)
     current = current->next;
+  return *this;
 }
 
-/**
- * @brief Post-increment, advances the pointer to the next node, if there is one
- *
- * @tparam T
- */
 template <typename T>
-void CListItr<T>::operator++(int)
+CListItr<T> CListItr<T>::operator++(int)
 {
-  if (current)
-    current = current->next;
+  CListItr prior = *this;
+  ++(*this);
+  return prior;
 }
 
 #endif
