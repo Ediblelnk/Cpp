@@ -381,22 +381,20 @@ template <typename T>
 ostream &CLinkedList<T>::printReverse(ostream &out)
 {
   // call helper function
-  recursiveReverse(out, last->next);
+  // needs to refer to a linked list WITH elements
+  if (last)
+    recursiveReverse(out, last->next);
   return out;
 }
 
 template <typename T>
 ostream &CLinkedList<T>::recursiveReverse(ostream &out, Node<T> *n)
 {
-  // needs to refer to a linked list WITH elements
-  if (last)
-  {
-    // print previous element before this element, unless last element
-    if (n != last)
-      recursiveReverse(out, n->next);
-    // all previous elements have been printed, print this element
-    out << n->data << " ";
-  }
+  // print previous element before this element, unless last element
+  if (n != last)
+    recursiveReverse(out, n->next);
+  // all previous elements have been printed, print this element
+  out << n->data << " ";
   return out;
 }
 
