@@ -39,7 +39,7 @@ void WordDataList::parseIntoList(ifstream &inf)
 
 // Print the data iteratively
 void WordDataList::printIteratively()
-//  void printObjectArrayIterator(WordData TheWords[], int numWords)
+// void printObjectArrayIterator(WordData TheWords[], int numWords)
 {
   cout << "--------------------------" << endl;
   cout << "|Object  Array  Iterative|" << endl;

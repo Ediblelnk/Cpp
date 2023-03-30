@@ -20,7 +20,11 @@ public:
   virtual void printRecursively();
 
 private:
-  CLinkedList<WordData> TheWords();
+  CLinkedList<WordData> TheWords;
+
+  bool incMatch(string temp);
+
+  void printRecursivelyWorker(CListItr<WordData> &itr);
 };
 
 #endif

@@ -20,7 +20,7 @@ public:
   virtual void printRecursively();
 
 private:
-  list<WordData> TheWords();
+  list<WordData> TheWords;
 };
 
 #endif
