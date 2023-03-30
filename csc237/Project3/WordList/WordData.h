@@ -1,6 +1,6 @@
 /****************************************************************/
 /*   Filename:       WordData.h                                 */
-/*   Purpose:        The Only Addition i made to this file was  */ 
+/*   Purpose:        The Only Addition i made to this file was  */
 /*                   an overloading of the << operator.         */
 /****************************************************************/
 
@@ -11,36 +11,35 @@
 
 using namespace std;
 
-class WordData {
+class WordData
+{
 
 public:
+  // Constructor
+  WordData(string wrd = "", int cnt = 1);
 
-        //Constructor
-        WordData(string wrd = "", int cnt = 1);
+  // Sets
+  void setWord(string wrd);
+  void setCount(int cnt);
 
-        //Sets
-        void setWord(string wrd);
-        void setCount(int cnt);
+  // Set Whole WordData Object
+  void setWordData(string, int);
 
-        //Set Whole WordData Object
-        void setWordData(string,int);
+  // Gets
+  string getWord() const;
+  int getCount() const;
 
-        //Gets
-        string getWord() const;
-        int getCount() const;
+  // Increment
+  void incCount(int inc = 1);
 
-        //Increment
-        void incCount(int inc = 1);
+  const bool operator<(const WordData &right) const;
 
 private:
-
-        //variables
-        string word;
-        int count;
-
-
+  // variables
+  string word;
+  int count;
 };
 
-ostream &operator<<(ostream& output, const WordData &words);
+ostream &operator<<(ostream &output, const WordData &words);
 
 #endif

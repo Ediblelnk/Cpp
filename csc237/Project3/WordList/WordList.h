@@ -12,21 +12,20 @@
 
 using namespace std;
 
-class WordList {
+class WordList
+{
 public:
-
   // Place the line of text into the data structure
-  virtual void parseIntoList(ifstream &inf)=0;
+  virtual void parseIntoList(ifstream &inf) = 0;
 
   // Print the data iteratively
-  virtual void printIteratively()=0;
-  
+  virtual void printIteratively() = 0;
+
   // Print the data recursively
-  virtual void printRecursively()=0;
-  
+  virtual void printRecursively() = 0;
+
   // Print the data recursively with a pointer
-  virtual void printPtr() {}   // not pure virtual; why?
-    
+  virtual void printPtr() {} // not pure virtual; why?
 };
-  
+
 #endif
