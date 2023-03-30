@@ -21,6 +21,10 @@ public:
 
 private:
   list<WordData> TheWords;
+
+  bool incMatch(string temp);
+
+  void printRecursivelyWorker(list<WordData>::iterator &itr);
 };
 
 #endif
