@@ -370,9 +370,9 @@ ostream &operator<<(ostream &out, const CLinkedList<T> &right)
   {
     // extract elements until final node
     for (iter.begin(); !iter.isLastNode(); iter++)
-      out << *iter << " ";
+      out << *iter << endl;
     // extract final node
-    out << *iter;
+    out << *iter << endl;
   }
   return out;
 }
@@ -394,7 +394,7 @@ ostream &CLinkedList<T>::recursiveReverse(ostream &out, Node<T> *n)
   if (n != last)
     recursiveReverse(out, n->next);
   // all previous elements have been printed, print this element
-  out << n->data << " ";
+  out << n->data << endl;
   return out;
 }
 

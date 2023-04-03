@@ -41,10 +41,11 @@ void WordDataList::parseIntoList(ifstream &inf)
 void WordDataList::printIteratively()
 // void printObjectArrayIterator(WordData TheWords[], int numWords)
 {
-  cout << "--------------------------" << endl;
-  cout << "|Object  Array  Iterative|" << endl;
-  cout << "|Word         Occurences |" << endl;
-  cout << "--------------------------" << endl;
+  cout << "~~~~~~~~~~~~~~~~~~~~~~" << endl
+       << "Object Array Iterative" << endl
+       << "~~~~~~~~~~~~~~~~~~~~~~" << endl
+       << "Word       Occurrences" << endl
+       << "~~~~~~~~~~~~~~~~~~~~~~" << endl;
   for (int i = 0; i < numWords; i++)
     cout << " " << TheWords[i] << endl;
 }
@@ -55,10 +56,11 @@ void WordDataList::printRecursivelyWorker(int numWords)
 {
   if (numWords == 1)
   {
-    cout << "--------------------------" << endl;
-    cout << "|Object  Array  Recursive|" << endl;
-    cout << "|Word         Occurences |" << endl;
-    cout << "--------------------------" << endl;
+    cout << "~~~~~~~~~~~~~~~~~~~~~~" << endl
+         << "Object Array Recursive" << endl
+         << "~~~~~~~~~~~~~~~~~~~~~~" << endl
+         << "Word       Occurrences" << endl
+         << "~~~~~~~~~~~~~~~~~~~~~~" << endl;
     cout << " " << TheWords[numWords - 1] << endl;
     return;
   }

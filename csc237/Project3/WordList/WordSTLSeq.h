@@ -27,4 +27,7 @@ private:
   void printRecursivelyWorker(list<WordData>::iterator &itr);
 };
 
+template <typename T>
+ostream &operator<<(ostream &out, const list<T> &right);
+
 #endif

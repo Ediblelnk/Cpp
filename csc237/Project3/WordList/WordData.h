@@ -33,8 +33,6 @@ public:
   void incCount(int inc = 1);
 
   bool operator<(const WordData &right) const;
-  bool operator==(const WordData &right) const;
-  bool operator==(const string &right) const;
 
 private:
   // variables

@@ -46,16 +46,6 @@ bool WordData::operator<(const WordData &right) const
   return (this->getWord() < right.getWord());
 }
 
-bool WordData::operator==(const WordData &right) const
-{
-  return (this->getWord() == right.getWord());
-}
-
-bool WordData::operator==(const string &right) const
-{
-  return (this->getWord() == right);
-}
-
 ostream &operator<<(ostream &output, const WordData &words)
 {
   output << left << setw(15) << words.getWord() << setw(4) << right << words.getCount();

@@ -14,7 +14,12 @@ void WordSTLSeq::parseIntoList(ifstream &inf)
 
 void WordSTLSeq::printIteratively()
 {
-  // code
+  cout << "~~~~~~~~~~~~~~~~~~~~~~" << endl
+       << "Circular List Iterator" << endl
+       << "~~~~~~~~~~~~~~~~~~~~~~" << endl
+       << "Word       Occurrences" << endl
+       << "~~~~~~~~~~~~~~~~~~~~~~" << endl;
+  cout << TheWords;
 }
 
 void WordSTLSeq::printRecursively()
@@ -30,4 +35,12 @@ void WordSTLSeq::printRecursivelyWorker(list<WordData>::iterator &itr)
 bool incMatch(string temp)
 {
   // code
+}
+
+template <typename T>
+ostream &operator<<(ostream &out, const list<T> &right)
+{
+  // code
+
+  return out;
 }
