@@ -422,13 +422,13 @@ void CLinkedList<T>::destroy(Node<T> *n, Node<T> *&start)
 {
   if (n)
   {
+    // if not back at the beginning of the list, delete the next Node
+    if (n != start)
+      destroy(n, start);
     // delete the passed Node and follow to the next Node
     Node<T> *doomed = n;
     n = n->next;
     delete doomed;
-    // if not back at the beginning of the list, delete the next Node
-    if (n != start)
-      destroy(n, start);
   }
 }
 

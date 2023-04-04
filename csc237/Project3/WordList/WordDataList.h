@@ -14,7 +14,7 @@ using namespace std;
 class WordDataList : public WordList
 {
 public:
-  WordDataList();
+  WordDataList(ifstream &inf);
 
   // Put a string of strings into the list object
   virtual void parseIntoList(ifstream &inf);

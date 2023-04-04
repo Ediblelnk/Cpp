@@ -48,6 +48,6 @@ bool WordData::operator<(const WordData &right) const
 
 ostream &operator<<(ostream &output, const WordData &words)
 {
-  output << left << setw(15) << words.getWord() << setw(4) << right << words.getCount();
+  output << "| " << left << setw(14) << words.getWord() << setw(9) << right << words.getCount() << " |";
   return output;
 }

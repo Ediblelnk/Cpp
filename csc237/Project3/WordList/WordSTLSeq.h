@@ -11,7 +11,7 @@ using namespace std;
 class WordSTLSeq : public WordList
 {
 public:
-  WordSTLSeq();
+  WordSTLSeq(ifstream &inf);
 
   virtual void parseIntoList(ifstream &inf);
 

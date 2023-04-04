@@ -11,7 +11,7 @@ using namespace std;
 class WordCList : public WordList
 {
 public:
-  WordCList();
+  WordCList(ifstream &inf);
 
   virtual void parseIntoList(ifstream &inf);
 

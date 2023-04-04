@@ -8,9 +8,10 @@
 
 using namespace std;
 
-WordDataList::WordDataList()
+WordDataList::WordDataList(ifstream &inf)
 {
   numWords = 0;
+  parseIntoList(inf);
 }
 
 bool WordDataList::incMatch(string temp)
@@ -39,59 +40,55 @@ void WordDataList::parseIntoList(ifstream &inf)
 
 // Print the data iteratively
 void WordDataList::printIteratively()
-// void printObjectArrayIterator(WordData TheWords[], int numWords)
 {
-  cout << "~~~~~~~~~~~~~~~~~~~~~~" << endl
-       << "Object Array Iterative" << endl
-       << "~~~~~~~~~~~~~~~~~~~~~~" << endl
-       << "Word       Occurrences" << endl
-       << "~~~~~~~~~~~~~~~~~~~~~~" << endl;
+  cout << "+-------------------------+" << endl
+       << "| Object Array  Iterative |" << endl
+       << "+-------------------------+" << endl
+       << "| Word        Occurrences |" << endl
+       << "+-------------------------+" << endl;
   for (int i = 0; i < numWords; i++)
-    cout << " " << TheWords[i] << endl;
+    cout << TheWords[i] << endl;
+  cout << "+-------------------------+" << endl;
 }
 
 // Print the data recursively
 void WordDataList::printRecursivelyWorker(int numWords)
-// void printObjectArrayRecursive(WordData TheWords[], int numWords)
 {
-  if (numWords == 1)
-  {
-    cout << "~~~~~~~~~~~~~~~~~~~~~~" << endl
-         << "Object Array Recursive" << endl
-         << "~~~~~~~~~~~~~~~~~~~~~~" << endl
-         << "Word       Occurrences" << endl
-         << "~~~~~~~~~~~~~~~~~~~~~~" << endl;
-    cout << " " << TheWords[numWords - 1] << endl;
+  if (numWords < 0)
     return;
-  }
   printRecursivelyWorker(numWords - 1);
-  cout << " " << TheWords[numWords - 1] << endl;
+  cout << TheWords[numWords] << endl;
 }
 
 // Call worker function to print the data recursively
 void WordDataList::printRecursively()
 {
-  printRecursivelyWorker(numWords);
+  cout << "+-------------------------+" << endl
+       << "| Object Array  Recursive |" << endl
+       << "+-------------------------+" << endl
+       << "| Word        Occurrences |" << endl
+       << "+-------------------------+" << endl;
+  printRecursivelyWorker(numWords - 1);
+  cout << "+-------------------------+" << endl;
 }
 
 // Print the data recursively with a pointer
 void WordDataList::printPtrWorker(int numWords)
-// void printObjectArrayPointerRecursive(WordData* TheWords, int numWords)
 {
   if (!numWords)
-  {
-    cout << "--------------------------" << endl;
-    cout << "|Object  Array  Pointer  |" << endl;
-    cout << "|Word         Occurences |" << endl;
-    cout << "--------------------------" << endl;
     return;
-  }
   printPtrWorker(numWords - 1);
-  cout << " " << *(TheWords + (numWords - 1)) << endl;
+  cout << *(TheWords + (numWords - 1)) << endl;
 }
 
 // Call worker function to print the data recursively
 void WordDataList::printPtr()
 {
+  cout << "+-------------------------+" << endl
+       << "|  Object Array  Pointer  |" << endl
+       << "+-------------------------+" << endl
+       << "| Word        Occurrences |" << endl
+       << "+-------------------------+" << endl;
   printPtrWorker(numWords);
+  cout << "+-------------------------+" << endl;
 }
