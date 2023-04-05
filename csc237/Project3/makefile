@@ -1,6 +1,6 @@
 COMPILER  = g++
 
-DEBUG  = 
+DEBUG  = -g
 
 EXE  = app
 

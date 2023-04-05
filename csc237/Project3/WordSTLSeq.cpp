@@ -1,3 +1,15 @@
+/**
+ * @file WordSTLSeq.cpp
+ * @author Peter Schaefer (pscha710@live.kutztown.edu)
+ * @brief Class DEFINITION for STL list of WordData objects.
+ * Contains special methods to parse in data from a file and update occurrences
+ * of a given word.
+ * @version 0.1
+ * @date 2023-04-04
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
 #include "WordSTLSeq.h"
 
 using namespace std;
@@ -26,7 +38,6 @@ bool WordSTLSeq::incMatch(string temp)
 
 void WordSTLSeq::parseIntoList(ifstream &inf)
 {
-  // code
   string temp;
   while (inf >> temp)
     if (!incMatch(temp))

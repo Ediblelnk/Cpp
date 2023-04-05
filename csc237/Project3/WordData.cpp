@@ -1,3 +1,15 @@
+/**
+ * @file WordData.cpp
+ * @author Peter Schaefer (pscha710@live.kutztown.edu) / Dr. Spiegel
+ * @brief Class DEFINITION for a WordData object. A WordData object contains a word
+ * and its corresponding number of occurrences. There are also methods to print, getWord / getCount
+ * incCount, and setWord / setCount.
+ * @version 0.1
+ * @date 2023-04-04
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
 #include <iostream>
 #include <iomanip>
 #include <sstream>
@@ -48,6 +60,6 @@ bool WordData::operator<(const WordData &right) const
 
 ostream &operator<<(ostream &output, const WordData &words)
 {
-  output << "| " << left << setw(14) << words.getWord() << setw(9) << right << words.getCount() << " |";
+  output << "| " << left << setw(18) << words.getWord() << setw(5) << right << words.getCount() << " |";
   return output;
 }

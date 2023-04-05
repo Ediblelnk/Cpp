@@ -1,7 +1,15 @@
-// File: WordDataList.cpp
-// Container of WordData objects
-//   Implementations of member functions including inherited pure virtual fns.
-
+/**
+ * @file WordDataList.cpp
+ * @author Peter Schaefer (pscha710@live.kutztown.edu) / Dr. Spiegel
+ * @brief Class DEFINITION for array of WordData objects.
+ * Contains special methods to parse in data from a file and update occurrences
+ * of a given word.
+ * @version 0.1
+ * @date 2023-04-04
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
 #include <sstream>
 #include <iostream>
 #include "WordDataList.h"
