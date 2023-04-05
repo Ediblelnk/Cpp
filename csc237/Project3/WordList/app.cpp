@@ -13,8 +13,10 @@
 /****************************************************************/
 
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 #include <fstream>
+#include <chrono>
 #include "WordList.h"
 #include "WordDataList.h"
 #include "WordCList.h"
@@ -40,6 +42,8 @@ void printEverything(const string &fname, ifstream &inf, WordList *TheList);
 /*   Parameters:  string sentence - sent to every function           */
 /*                WordDataList TheList - The array of object         */
 /*********************************************************************/
+
+void printDelta(const string &title, chrono::_V2::system_clock::time_point start, chrono::_V2::system_clock::time_point end);
 
 int main(int argc, char *argv[])
 {
@@ -74,12 +78,13 @@ int main(int argc, char *argv[])
     cout << "  ";
     cin >> selection;
 
+    auto parse_begin = chrono::high_resolution_clock::now();
     switch (selection)
     {
     case '1':
     case '2':
     case '3':
-      TheList = new WordDataList(inf);
+      TheList = new WordDataList(inf); //instantiation also parses file
       break;
     case '4':
     case '5':
@@ -96,7 +101,9 @@ int main(int argc, char *argv[])
       cout << "  I cannot understand " << selection << ".  Try again." << endl;
       break;
     }
+    auto parse_end = chrono::high_resolution_clock::now();
 
+    auto print_begin = chrono::high_resolution_clock::now();
     switch (selection)
     {
     case '1': // Object Array Iterative
@@ -116,7 +123,21 @@ int main(int argc, char *argv[])
       delete TheList;
       break;
     }
+    auto print_end = chrono::high_resolution_clock::now();
     inf.close();
+
+    switch (selection)
+    {
+    case '1':
+    case '2':
+    case '3':
+    case '4':
+    case '5':
+    case '6':
+    case '7':
+      printDelta("Time to Parse", parse_begin, parse_end);
+      printDelta("Time to Print", print_begin, print_end);
+    }
   }
 
   return 0;
@@ -141,7 +162,13 @@ void displayMenu()
 
 void printEverything(const string &fname, ifstream &inf, WordList *TheList)
 {
+  chrono::_V2::system_clock::time_point start, end;
+
+  start = chrono::high_resolution_clock::now();
   TheList = new WordDataList(inf);
+  end = chrono::high_resolution_clock::now();
+  printDelta("Time to parse:", start, end);
+
   TheList->parseIntoList(inf);
   TheList->printIteratively();
   TheList->printRecursively();
@@ -163,4 +190,12 @@ void printEverything(const string &fname, ifstream &inf, WordList *TheList)
   TheList->printIteratively();
   TheList->printRecursively();
   inf.close();
+}
+
+void printDelta(const string &title, chrono::_V2::system_clock::time_point start, chrono::_V2::system_clock::time_point end)
+{
+  auto delta = chrono::duration_cast<chrono::microseconds>(end - start);
+  cout << "+-----------------------------------+" << endl
+       << "| " << left << setw(15) << title << right << setw(5) << delta.count() << " microseconds |" << endl
+       << "+-----------------------------------+" << endl;
 }
