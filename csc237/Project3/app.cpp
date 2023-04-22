@@ -70,7 +70,6 @@ int main(int argc, char *argv[])
   cout << "Please enter a file name:" << endl;
   getline(cin, fileName);
 
-
   while (true)
   {
     inf.open(fileName.c_str());
@@ -191,7 +190,7 @@ void printEverything(const string &fname, ifstream &inf, WordList *TheList)
   delete TheList;
 
   inf.open(fname);
-  /* PRINT AND TIME ALL OF THE CLINKEDLIST */
+  /* PRINT AND TIME ALL OF THE WORDCLIST */
   start = chrono::high_resolution_clock::now();
   TheList = new WordCList(inf);
   end = chrono::high_resolution_clock::now();
@@ -206,15 +205,11 @@ void printEverything(const string &fname, ifstream &inf, WordList *TheList)
   end = chrono::high_resolution_clock::now();
   printDelta("Time to print Circular List Recursive:", start, end);
   inf.close();
-  cout << "PRE DELETE" << endl;
   delete TheList;
-  cout << "POST DELETE" << endl;
 
   inf.open(fname);
-  cout << "POST OPEN" << endl;
-  /* PRINT AND TIME ALL OF THE STL LIST */
+  /* PRINT AND TIME ALL OF THE WORDSTLSEQ */
   start = chrono::high_resolution_clock::now();
-  cout << "POST INSTANCE" << endl;
   TheList = new WordSTLSeq(inf);
   end = chrono::high_resolution_clock::now();
   printDelta("Time to parse STL List:", start, end);

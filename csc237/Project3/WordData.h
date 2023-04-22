@@ -17,6 +17,12 @@
 
 using namespace std;
 
+/**
+ * @brief A WordData object contains a word
+ * and its corresponding number of occurrences. There are also methods to print, getWord / getCount
+ * incCount, and setWord / setCount.
+ *
+ */
 class WordData
 {
 
