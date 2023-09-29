@@ -1,1 +1,0 @@
-LINK TO DOXYGEN DOCUMENTATION: https://acad.kutztown.edu/~pscha710/csc237/Project2/html/
